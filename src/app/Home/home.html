@@ -1,0 +1,34 @@
+
+    <div class='panel panel-primary'>
+        <div class='panel-heading'>
+            <p>Alerts</p>
+        </div>
+        <div class='panel-body'>
+            <div class='table-responsive'>
+                <table class='table table-striped'>
+                    <thead>
+                        <tr>
+                            <th>JobId</th>
+                            <th>Type</th>
+                            <th>SubType</th>
+                            <th>Alert</th>
+                            <th>IsActive</th>
+                            <th>Frequency</th>
+                            <th>Runs Every</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let am of homeModel;">
+                            <td>{{am.JobId}}</td>
+                            <td>{{am.AlertType | uppercase}}</td>
+                            <td>{{am.AlertSubType | uppercase}}</td>
+                            <td>{{am.Alert | uppercase}}</td>
+                            <td>{{am.IsActive}}</td>
+                            <td>{{am.JobFrequency}}</td>
+                            <td>{{am.RunsEvery}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

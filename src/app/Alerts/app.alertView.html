@@ -1,0 +1,161 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        <p>Alerts</p>
+    </div>
+    <div class='panel-body'>
+        <div class='table-responsive'>
+            <table class='table table-striped'>
+                <thead>
+                    <tr>
+                        <th>Message</th>
+                        <th>FileName</th>
+                        <th>FileDataId</th>
+                        <th>ConversationLog</th>
+                        <th>OrganizationId</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let am of alertModel;let i=index;let o=odd; let e=even;">
+                        <td>{{am.Message |uppercase}}</td>
+                        <td>{{am.FileName | uppercase}}</td>
+                        <td *myIf="true">{{am.FileDataId }}</td>
+                        <td>{{am.ConversationLog | BooleanConverter:'b':'hello'}}</td>
+                        <td [highlight]="false">{{am.OrganizationId}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <p>Model Driven Validation</p>
+        <div *ngFor="let error of ModelDrivenErrors">
+            {{error}}
+        </div>
+        <form [formGroup]="userForm" (ngSubmit)="onModelSubmit(userForm)" novalidate>
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" formControlName="fname" />
+            </div>
+            <div *ngIf="!userForm.controls.fname?.valid && (userForm.controls.fname?.dirty || userForm.controls.fname?.touched)" class="alert alert-danger">
+                <div [hidden]="userForm.controls.fname?.valid">
+                    First Name is required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" class="form-control" formControlName="lname" />
+            </div>
+            <div formGroupName="address">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" formControlName="city">
+                </div>
+                <div *ngIf="!userForm.controls.address?.controls.city?.valid && (userForm.controls.address?.controls.city?.dirty || userForm.controls.address?.controls.city?.touched)"
+                    class="alert alert-danger">
+                    <div [hidden]="userForm.controls.address?.controls.city?.valid">
+                        City is required
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="street">Street</label>
+                    <input type="text" class="form-control" formControlName="street">
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Pin Code</label>
+                    <input type="text" class="form-control" formControlName="pincode">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-6">
+        <p>Template Driven Validation</p>
+        <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" novalidate>
+            <div *ngFor="let error of Errors">
+                {{error}}
+            </div>
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" name="firstname" required ngModel />
+                <div *ngIf="!contactForm.controls.firstname?.valid && (contactForm.controls.firstname?.dirty || contactForm.controls.firstname?.touched)"
+                    class="alert alert-danger">
+                    <div [hidden]="contactForm.controls.firstname?.valid">
+                        First Name is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" class="form-control" name="lastname" ngModel>
+            </div>
+            <div ngModelGroup="address">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" name="city" ngModel required>
+                </div>
+                <div *ngIf="!contactForm.controls.address?.controls.city?.valid && (contactForm.controls.address?.controls.city?.dirty || contactForm.controls.address?.controls.city?.touched)"
+                    class="alert alert-danger">
+                    <div [hidden]="contactForm.controls.address?.controls.city?.valid">
+                        City is required
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="street">Street</label>
+                    <input type="text" class="form-control" name="street" ngModel>
+                </div>
+
+                <div class="form-group">
+                    <label for="pincode">Pin Code</label>
+                    <input type="text" class="form-control" name="pincode" ngModel>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <input type="text" [(ngModel)]="userName" />
+        <button type="button" (click)="onclick()">Get Repositories</button>
+    </div>
+</div>
+<br/>
+<div *ngIf="ErrorMessages !== null" class="row">
+    {{ErrorMessages}}
+</div>
+<br/>
+<div class="row">
+    <div class="col-sm-12">
+        <div class='panel-body'>
+            <div class='table-responsive'>
+                <table class='table table-striped'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let am of responseArray">
+                            <td>{{am.id}}</td>
+                            <td>{{am.name }}</td>
+                            <td>{{am.description}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
